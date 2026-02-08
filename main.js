@@ -1,13 +1,12 @@
-import User from "./models/Users.model.js"
 import { connectMongoDB } from "./config/mongoDB.config.js"
 import userRepository from "./repository/user.repository.js"
 import express, { response } from "express"
-import testRouter from "./routes/test.router.js"
 import authRouter from "./routes/auth.router.js"
-import mail_transporter from "./config/mail.config.js"
-import ENVIRONMENT from "./config/enviroment.config.js"
 import randomMiddleware from "./middlewares/random.middleware.js"
 import cors from "cors"
+import workspaceRepository from "./repository/workspace.repository.js"
+import workspaceRouter from "./routes/workspace.router.js"
+import messagesRepository from "./repository/messages.repository.js"
 
 connectMongoDB()
 
@@ -52,27 +51,8 @@ app.get(
     }
 )
 
-app.get(
-    '/test',
-    (request, response) => {
-        response.send('Estas testeando el servidor')
-    }
-)
-
-app.post(
-    '/test',
-    (request, response) => {
-    // Request.body es donde se guarda la informacion que nos envia el cliente
-        console.log(request.body)
-        response.send('Gracias por el objeto')
-    }
-)
-
-// Todas las consultas hacia /api/test la delegamos al test Router
-
-app.use('/api/test', testRouter)
-
 app.use('/api/auth', authRouter)
+app.use("/api/workspace", workspaceRouter)
 
 
 // Le tenemos que poner una direccion donde se va a ejecutar
@@ -93,15 +73,32 @@ mail_transporter.sendMail({
 
 */
 
-app.get(
-    '/api/suerte/saber',
-    randomMiddleware, //nose invoca, no se le pone () al final
-    (request,response) => {
-        if (request.suerte) { // Suerte esta definido porque el middle ware lo determino
-            response.send('Tenes suerte')
-        }
-        else {
-            response.send('No tenes suerte')
-        }
-    }
-)   
+/* 
+//Quiero crear un espacio de trabajo de prueba
+*/
+/*
+async function crearEspacioDeTrabajo (){
+
+    //Creo el espacio de trabajo de prueba
+    const workspace = await workspaceRepository.create(
+        '696879956a03e7636b47b4e0', //Remplazen por su id
+        'test',
+        'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'Descripcion del espacio de trabajo'
+    )
+    //Me agrego como miembro
+    await workspaceRepository.addMember(workspace._id, '696879956a03e7636b47b4e0', 'Owner')
+}
+
+crearEspacioDeTrabajo()
+
+/* 
+1ero:
+    Crear espacio de trabajo
+    Agregar miembro
+
+2do: Crear endpoint para obtener espacios de trabajo asociados al usuario
+3ro: Probar con postman
+*/
+
+/* messagesRepository.getAllByChannelId('6985bdb9842915bb16f228a4').then(result => console.log(result)) */

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { type } from "os";
 
 const workspaceSchema = new mongoose.Schema({
-    fw_id_owner :{
+    fk_id_owner :{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', //pseudo relación
         required: true
