@@ -19,16 +19,35 @@ class WorkspaceController {
         })
     }
     async create(request, response) {
-        const { title, image, description } = request.body
-        const user_id = request.user.id
-        const workspace = await workspaceRepository.create(user_id, title, image, description)
-        await workspaceRepository.addMember(workspace._id, user_id, 'Owner')
-        response.json({
-            ok: true,
-            data: {
-                workspace
+        try {
+            const { title, /*image*/ description } = request.body
+            const user_id = request.user.id
+            const workspace = await workspaceRepository.create(user_id, title, null, description)
+            await workspaceRepository.addMember(workspace._id, user_id, 'Owner')
+            response.json({
+                ok: true,
+                data: {
+                    workspace
+                }
+            })
+        }
+        catch (error) {
+            if (error.status) {
+                return response.status(error.status).json({
+                    ok: false,
+                    message: error.message,
+                    status: error.status,
+                    data: null
+                })
             }
-        })
+            console.error(error)
+            return response.send({
+                message: 'Error interno del servidor',
+                status: 500,
+                of: false,
+                data: null
+            })
+        }
     }
     async deleteWorkspace(request, response) {
         try {
@@ -139,10 +158,10 @@ class WorkspaceController {
     }
 
     async acceptInvitation(request, response) {
-        try { 
+        try {
             const { invitation_token } = request.query
             const payload = jwt.verify(invitation_token, ENVIRONMENT.JWT_SECRET)
-            const{id, workspace: workspace_id, role} = payload
+            const { id, workspace: workspace_id, role } = payload
             await workspaceRepository.addMember(id, workspace_id, role)
             response.redirect(`${ENVIRONMENT.URL_FRONTEND}/`)
         }
@@ -165,9 +184,9 @@ class WorkspaceController {
             })
         }
     }
-    async getById(request, response){
-        try{
-            const {workspace, member} = request
+    async getById(request, response) {
+        try {
+            const { workspace, member } = request
             response.json({
                 ok: true,
                 status: 200,
@@ -197,6 +216,6 @@ class WorkspaceController {
         }
     }
 }
-    const workspaceController = new WorkspaceController()
+const workspaceController = new WorkspaceController()
 
 export default workspaceController

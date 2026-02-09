@@ -51,7 +51,7 @@ app.get(
     }
 )
 
-app.use('/api/auth', authRouter)
+app.use('/api/auth', authRouter) //Esto significa que la ruta /api/auth va a estar asociada al archivo auth.router.js
 app.use("/api/workspace", workspaceRouter)
 
 
@@ -101,4 +101,4 @@ crearEspacioDeTrabajo()
 3ro: Probar con postman
 */
 
-/* messagesRepository.getAllByChannelId('6985bdb9842915bb16f228a4').then(result => console.log(result)) */
+/* messagesRepository.getAllByChannelId('6985bdb9842915bb16f228a4').then(result => console.log((JSON.stringify(result))))//.then(result => console.log(result)) */

@@ -14,7 +14,20 @@ class WorkspaceRepository {
             path:'fk_id_workspace',
             match: {active: true}
         }) //Esto permite expandir sobre la referencia a la tabla de espacios de trabajo
-        return workspaces.filter((member)=> member.fk_id_workspace !== null)// Eliminamos los null
+
+        const members_workspace = workspaces.filter((member)=> member.fk_id_workspace !== null)// Eliminamos los null
+        return members_workspace.map(
+            (member_workspace) => {
+                return{
+                    member_id: member_workspace._id,
+                    member_role: member_workspace.role,
+                    member_id_user: member_workspace.fk_id_user._id,
+                    workspace_id: member_workspace.fk_id_workspace._id,
+                    workspace_title: member_workspace.fk_id_workspace.title,
+                    workspace_image: member_workspace.fk_id_workspace.image,
+                }
+            }
+        )
     }
 
     async create (fk_id_owner, title, image, description){

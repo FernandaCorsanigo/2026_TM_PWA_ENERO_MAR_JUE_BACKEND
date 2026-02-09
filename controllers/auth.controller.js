@@ -8,7 +8,7 @@ class AuthController {
     async register(request, response) {
         try {
 
-            const { email, password, username } = request.body
+            const { email, password, username } = request.body //>>> si vemos, en postam pasamos por 'body' y json el email, password y username
 
             if (!email || !password || !username) {
                 throw new ServerError('Error: nombre, email o usuario invalido', 400)
