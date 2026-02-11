@@ -1,72 +1,34 @@
 import { channelRepository } from "../repository/channel.repository.js"
 
 class ChannelController {
-    async getAllByWorkspaceId(request, response) {
-        try{
-            const {workspace_id} = request.params
-            const channels = await channelRepository.getAllByWorkspaceId(workspace_id)
-            response.json({
-                status: 200,
-                ok: true,
-                message: 'Canales obtenidos con exito',
-                data: {
-                    channels
-                },
-            })
-        }
-        catch (error) {
-            if (error.status) {
-                return response.status(error.status).json({
-                    ok: false,
-                    message: error.message,
-                    status: error.status,
-                    data: null
-                })
-            }
-            console.error(error)
-            return response.send({
-                message: 'Error interno del servidor',
-                status: 500,
-                of: false,
-                data: null
-            })
-        }
+    async getAllByWorkspaceId(request, response, next) {
+        const { workspace_id } = request.params
+        const channels = await channelRepository.getAllByWorkspaceId(workspace_id)
+        response.json({
+            status: 200,
+            ok: true,
+            message: 'Canales obtenidos con exito',
+            data: {
+                channels
+            },
+        })
     }
-    async create (request, response) {
-        try{
-            const {name} = request.body
-            const {workspace_id} = request.params
+    async create(request, response, next) {
+        const { name } = request.body
+        const { workspace_id } = request.params
 
-            const channel_created = await channelRepository.create(workspace_id, name)
-            response.json({
-                status: 201,
-                ok: true,
-                message: 'Canal creado con exito',
-                data: {
-                    channel_created
-                },
-            })
-        }
-        catch (error) {
-            if (error.status) {
-                return response.status(error.status).json({
-                    ok: false,
-                    message: error.message,
-                    status: error.status,
-                    data: null
-                })
-            }
-            console.error(error)
-            return response.send({
-                message: 'Error interno del servidor',
-                status: 500,
-                of: false,
-                data: null
-            })
-        }
+        const channel_created = await channelRepository.create(workspace_id, name)
+        response.json({
+            status: 201,
+            ok: true,
+            message: 'Canal creado con exito',
+            data: {
+                channel_created
+            },
+        })
     }
 }
 
 const channelController = new ChannelController()
 
-export {channelController}
+export { channelController }

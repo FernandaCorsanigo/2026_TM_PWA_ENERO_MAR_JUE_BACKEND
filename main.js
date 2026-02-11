@@ -2,11 +2,10 @@ import { connectMongoDB } from "./config/mongoDB.config.js"
 import userRepository from "./repository/user.repository.js"
 import express, { response } from "express"
 import authRouter from "./routes/auth.router.js"
-import randomMiddleware from "./middlewares/random.middleware.js"
+import verifyApiKeyMiddleware from "./middlewares/verifyApiKey.middleware.js"
 import cors from "cors"
-import workspaceRepository from "./repository/workspace.repository.js"
 import workspaceRouter from "./routes/workspace.router.js"
-import messagesRepository from "./repository/messages.repository.js"
+import errorMiddleware from "./middlewares/error.middleware.js"
 
 connectMongoDB()
 
@@ -42,11 +41,13 @@ app.use(cors())
 
 app.use(express.json())
 
+app.use(verifyApiKeyMiddleware)
+
 //Lo siguiente es para verificar que se esta ejecutando correctamente
 
 app.get(
     '/', //direccion donde espero recibir la consulta "la oficina" digamos
-    (request,response) => { // funcion en flecha que recibe response y request y response es el objeto de respuesta
+    (request, response) => { // funcion en flecha que recibe response y request y response es el objeto de respuesta
         response.send('Aplicacion ejecutandose correctamente')
     }
 )
@@ -54,14 +55,15 @@ app.get(
 app.use('/api/auth', authRouter) //Esto significa que la ruta /api/auth va a estar asociada al archivo auth.router.js
 app.use("/api/workspace", workspaceRouter)
 
+app.use(errorMiddleware)
 
 // Le tenemos que poner una direccion donde se va a ejecutar
 
 app.listen(
-    8080, 
+    8080,
     () => {
         console.log('Nuestra app se escucha en el puerto 8080')
-})
+    })
 
 /*
 mail_transporter.sendMail({
