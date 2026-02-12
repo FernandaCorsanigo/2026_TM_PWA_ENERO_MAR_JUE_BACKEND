@@ -12,19 +12,18 @@ const authRouter = express.Router()
 
 authRouter.post(
     '/register',
-    verifyApiKeyMiddleware,
+    //verifyApiKeyMiddleware,
     authController.register //>> el delegado para manejar el registro es el authController.register
 )
 
 authRouter.post(
     '/login',
-    verifyApiKeyMiddleware,
+    //verifyApiKeyMiddleware,
     authController.login
 )
 
 authRouter.get(
     '/verify-email',
-    verifyApiKeyMiddleware,
     authController.verifyEmail
 )
 

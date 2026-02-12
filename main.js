@@ -41,7 +41,7 @@ app.use(cors())
 
 app.use(express.json())
 
-app.use(verifyApiKeyMiddleware)
+//app.use(verifyApiKeyMiddleware)
 
 //Lo siguiente es para verificar que se esta ejecutando correctamente
 
@@ -53,7 +53,7 @@ app.get(
 )
 
 app.use('/api/auth', authRouter) //Esto significa que la ruta /api/auth va a estar asociada al archivo auth.router.js
-app.use("/api/workspace", workspaceRouter)
+app.use("/api/workspace", verifyApiKeyMiddleware, workspaceRouter)
 
 app.use(errorMiddleware)
 
