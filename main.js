@@ -41,8 +41,6 @@ app.use(cors())
 
 app.use(express.json())
 
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
-
 app.use(verifyApiKeyMiddleware)
 
 //Lo siguiente es para verificar que se esta ejecutando correctamente
