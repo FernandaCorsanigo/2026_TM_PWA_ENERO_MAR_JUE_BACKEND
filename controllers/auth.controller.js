@@ -130,18 +130,18 @@ class AuthController {
             }
         )
 
-        /*return response.json(
+        return response.json(
             {
                 ok: true,
                 message: 'Usuario verificado exitosamente',
                 status: 200,
                 data: null
             }
-        )*/
+        )
 
         //Redireccionamos al frontend
-        return response.redirect(
-            ENVIRONMENT.URL_FRONTEND + '/login?from=email-validated') // La query string email-validated es opcional
+        /*         return response.redirect(
+                    ENVIRONMENT.URL_FRONTEND + '/login?from=email-validated') */ // La query string email-validated es opcional
     }
 }
 
