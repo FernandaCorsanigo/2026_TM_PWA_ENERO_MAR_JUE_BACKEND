@@ -65,6 +65,9 @@ class AuthController {
     async login(request, response, next) {
         const { email, password } = request.body
         //Aplicar validaciones del email y la password//
+
+        console.log("EMAIL INGRESADO:", email)
+        console.log("PASSWORD INGRESADA:", password)
         if (!email) {
             throw new ServerError('Debes enviar un mail', 400)
         }
