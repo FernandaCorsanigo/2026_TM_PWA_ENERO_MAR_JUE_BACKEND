@@ -47,7 +47,7 @@ class AuthController {
                 <h1>Bienvenido ${username}</h1>
                 <p>Necesitamos que verifiques tu email</p>
                 <p>Haz click en "Verificar" para verificar tu mail</p>
-                <a href="${ENVIRONMENT.URL_BACKEND}/api/auth/verify-email?verification_email_token=${verification_email_token}">Verificar</a>
+                <a href="${ENVIRONMENT.URL_FRONTEND}/api/auth/verify-email?verification_email_token=${verification_email_token}">Verificar</a>
                 <br>
                 <span>Si desconoces este registro, desestima este mail</span>
                 `
