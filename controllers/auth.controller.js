@@ -35,6 +35,9 @@ class AuthController {
                 */
         )
 
+        console.log('URL_BACKEND:', ENVIRONMENT.URL_BACKEND);
+        console.log('TOKEN:', verification_email_token);
+
         await mail_transporter.sendMail(
             {
                 from: ENVIRONMENT.GMAIL_USERNAME,
