@@ -2,6 +2,7 @@
 import ENVIRONMENT from "../config/enviroment.config.js"
 import mail_transporter from "../config/mail.config.js"
 import ServerError from "../helpers/error.helpers.js"
+import { channelRepository } from "../repository/channel.repository.js"
 import userRepository from "../repository/user.repository.js"
 import workspaceRepository from "../repository/workspace.repository.js"
 import jwt from "jsonwebtoken"
@@ -23,12 +24,23 @@ class WorkspaceController {
         const user_id = request.user.id
         const workspace = await workspaceRepository.create(user_id, title, null, description)
         await workspaceRepository.addMember(workspace._id, user_id, 'Owner')
+
+        const channel = await channelRepository.create(
+            workspace._id,
+            'all-test',
+            true
+        )
+
         response.json({
             ok: true,
             data: {
-                workspace
+                workspace: {
+                    channels: [channel]
+                }
             }
         })
+
+
     }
     async deleteWorkspace(request, response, next) {
         const user_id = request.user.id
