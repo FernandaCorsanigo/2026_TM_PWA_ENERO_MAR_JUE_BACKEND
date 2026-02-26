@@ -7,7 +7,7 @@ async function channelMiddleware(request, response, next) {
 
         const channel_selected = await channelRepository.getByIdAndWorkspaceId(channel_id, workspace_id)
 
-        if(!channel_selected) {
+        if (!channel_selected) {
             throw new ServerError('Canal no existe', 404)
         }
 
@@ -15,7 +15,6 @@ async function channelMiddleware(request, response, next) {
         next()
     }
     catch (error) {
-        console.log('Error en el channel.middleware', error)
         if (error.status) {
             return response.json({
                 ok: false,

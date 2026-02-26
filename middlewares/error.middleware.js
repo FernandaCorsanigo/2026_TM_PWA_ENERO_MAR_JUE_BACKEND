@@ -1,7 +1,4 @@
-
 const errorMiddleware = (err, req, res, next) => {
-
-    //console.error(err.stack) // Opcional: loguear el stack trace
 
     if (err.status) {
         return res.status(err.status).json({
@@ -21,7 +18,6 @@ const errorMiddleware = (err, req, res, next) => {
         })
     }
 
-    // Errores de JWT expirado (opcional, pero buena practica)
     if (err.name === 'TokenExpiredError') {
         return res.status(401).json({
             ok: false,
@@ -31,7 +27,6 @@ const errorMiddleware = (err, req, res, next) => {
         })
     }
 
-    // Error generico (500)
     return res.status(500).json({
         ok: false,
         message: 'Error interno del servidor',

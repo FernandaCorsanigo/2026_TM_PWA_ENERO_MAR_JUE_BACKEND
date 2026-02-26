@@ -3,9 +3,9 @@ import messagesRepository from "../repository/messages.repository.js"
 class MessagesController {
     async createMessage(request, response, next) {
 
-        const { content } = request.body // obtenemos el contenido del mensaje
-        const member_id = request.member._id // obtenemos quien esta creando el mensaje
-        const { channel_id } = request.params //obtenemos en donde se va a crear el mensaje
+        const { content } = request.body
+        const member_id = request.member._id
+        const { channel_id } = request.params
 
         await messagesRepository.createMessage(member_id, channel_id, content)
 
@@ -14,7 +14,7 @@ class MessagesController {
         return response.json({
             status: 201,
             ok: true,
-            message: 'Mensaje creado con exito',
+            message: 'Message created successfully',
             data: {
                 messages: messages
             }
@@ -29,7 +29,7 @@ class MessagesController {
         return response.json({
             status: 200,
             ok: true,
-            message: 'Mensajes obtenidos con exito',
+            message: 'Messages obtained successfully',
             data: {
                 messages: messages
             }

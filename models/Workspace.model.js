@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import { type } from "os";
 
 const workspaceSchema = new mongoose.Schema({
-    fk_id_owner :{
+    fk_id_owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', //pseudo relación
+        ref: 'User',
         required: true
     },
     title: {
@@ -18,11 +18,11 @@ const workspaceSchema = new mongoose.Schema({
     image: {
         type: String,
     },
-    created_at :{
+    created_at: {
         type: Date,
         default: Date.now
     },
-    active :{
+    active: {
         type: Boolean,
         default: true
     }

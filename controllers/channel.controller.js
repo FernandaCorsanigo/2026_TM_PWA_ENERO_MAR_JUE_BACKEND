@@ -7,7 +7,7 @@ class ChannelController {
         response.json({
             status: 200,
             ok: true,
-            message: 'Canales obtenidos con exito',
+            message: 'Channels obtained successfully',
             data: {
                 channels
             },
@@ -21,7 +21,7 @@ class ChannelController {
         response.json({
             status: 201,
             ok: true,
-            message: 'Canal creado con exito',
+            message: 'Channel created successfully',
             data: {
                 channel_created
             },
@@ -31,16 +31,16 @@ class ChannelController {
         const { channel_id } = request.params
         const channel = await channelRepository.getByIdAndWorkspaceId(channel_id, request.workspace._id)
         if (!channel) {
-            throw new ServerError('Canal no encontrado', 404)
+            throw new ServerError('Channel not found', 404)
         }
         if (channel.is_default) {
-            throw new ServerError('No se puede eliminar el canal por defecto', 400)
+            throw new ServerError('Cannot delete default channel', 400)
         }
         await channelRepository.delete(channel_id)
         response.json({
             status: 200,
             ok: true,
-            message: 'Canal eliminado con exito',
+            message: 'Channel deleted successfully',
             data: null,
         })
     }
