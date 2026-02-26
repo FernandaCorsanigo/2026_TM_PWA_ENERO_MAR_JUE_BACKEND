@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "7204c796-2276-4808-aa50-303f8e6e93c0",
+    "name": "API-1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50913083"
+  },
+  "item": [
+    {
+      "name": "api/auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"emilia@hotmail.com\",\r\n    \"password\": \"emi6456\",\r\n    \"username\": \"emi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify email",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api/workspaces",
+      "item": [
+        {
+          "name": "/:workspace_id",
+          "item": [
+            {
+              "name": "/members",
+              "item": [
+                {
+                  "name": "New Request",
+                  "request": {
+                    "method": "GET",
+                    "header": []
+                  },
+                  "response": []
+                },
+                {
+                  "name": "New Request",
+                  "request": {
+                    "method": "GET",
+                    "header": []
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "/channels",
+              "item": [
+                {
+                  "name": "/:channel_id",
+                  "item": [
+                    {
+                      "name": "/messages",
+                      "item": [
+                        {
+                          "name": "Crear Mensaje",
+                          "request": {
+                            "method": "GET",
+                            "header": []
+                          },
+                          "response": []
+                        },
+                        {
+                          "name": "Obtener Mensajes",
+                          "request": {
+                            "method": "GET",
+                            "header": []
+                          },
+                          "response": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "crear canal",
+                  "request": {
+                    "method": "GET",
+                    "header": []
+                  },
+                  "response": []
+                },
+                {
+                  "name": "obtener canales",
+                  "request": {
+                    "method": "GET",
+                    "header": []
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Obtener por id",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Obtener espacios de trabajo",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Crear espacio de trabajo",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

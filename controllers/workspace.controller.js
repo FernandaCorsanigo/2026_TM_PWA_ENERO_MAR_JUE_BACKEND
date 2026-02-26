@@ -8,7 +8,6 @@ import workspaceRepository from "../repository/workspace.repository.js"
 import jwt from "jsonwebtoken"
 class WorkspaceController {
     async getWorkspaces(request, response) {
-        console.log("El usuario logueado es: " + request.user)
         const user_id = request.user.id
         const workspaces = await workspaceRepository.getWorkspacesByUserId(user_id)
         response.json({
